@@ -28,9 +28,8 @@
     self.label.layer.cornerRadius=10;
     [self.view addSubview:self.label];
     //赋值
-    self.label.text=self.name;
+//    self.label.text=self.name;
    
-    
     self.textfield=[[UITextField alloc] initWithFrame:CGRectMake(100, 200, 150, 40)];
     self.textfield.layer.borderWidth=1;
     self.textfield.layer.cornerRadius=10;

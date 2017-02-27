@@ -21,7 +21,7 @@
 {
     self =[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.arr = [NSMutableArray arrayWithObjects:@"宋江", @"卢俊义", @"吴用", @"公孙胜", @"关胜", @"林冲", @"秦明" ,@"呼延灼" , @"花容",@"柴进", @"李应", @"朱仝",@"鲁智深",@"武松",nil];
+        self.arr = [NSMutableArray arrayWithObjects:@"宋江",nil];
     }
     return self;
 }
@@ -29,11 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.navigationBar.translucent=NO;
+    self.navigationController.navigationBar.translucent=YES;
     self.navigationItem.title=@"表视图";
     
     
-    self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor=[UIColor yellowColor];
     [self.view addSubview:self.tableView];
     self.tableView.rowHeight=50;
@@ -52,17 +52,37 @@
 
 #pragma mark tableview的delegate已经签订好scrollerView的协议,只要设置代理人,就可以使用scrollerview的协议方法
 //只要滑动就会触发
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //获取偏移量
-    CGFloat y=scrollView.contentOffset.y;
-    NSLog(@"%g",y);
-    if (y<0) {
-        self.imageView.frame=CGRectMake(0, y, self.view.frame.size.width, -y);
-    }
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    //获取偏移量
+//    CGFloat y=scrollView.contentOffset.y;
+//    NSLog(@"%g",y);
+//    if (y<0) {
+//        self.imageView.frame=CGRectMake(0, y, self.view.frame.size.width, -y);
+//    }
+//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+#warning Incomplete implementation, return the number of sections
+    return 5;
 }
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.arr.count;
+    if (section==0) {
+        return 1;
+    }
+    if (section==1) {
+        return 1;
+    }
+    if (section==2) {
+        return 1;
+    }
+    if (section==3) {
+        return 1;
+    }
+    if (section==4) {
+        return 1;
+    }
+    return 1;
+//    return self.arr.count;
+//    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,29 +92,20 @@
         cell =[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuse];
     }
     cell.textLabel.text=self.arr[indexPath.row];
-    cell.detailTextLabel.text=[NSString stringWithFormat:@"%ld",indexPath.section];
+//    cell.detailTextLabel.text=[NSString stringWithFormat:@"%ld",indexPath.section];
+    cell.detailTextLabel.text=@"nicheng";
     cell.imageView.image=[UIImage imageNamed:@"天平.png"];
     return cell;
     
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"水浒";
 }
 
-
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     return self.arr;
 }
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SecondViewController *secVC=[[SecondViewController alloc] init];
